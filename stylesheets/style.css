@@ -1,0 +1,191 @@
+/* italiana-regular - latin */
+@font-face {
+    font-family: "Italiana";
+    font-style: normal;
+    font-weight: 400;
+    src: local(""),
+        url("../fonts/italiana-v16-latin-regular.woff2") format("woff2"),
+        /* Chrome 26+, Opera 23+, Firefox 39+ */
+            url("../fonts/italiana-v16-latin-regular.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+:root {
+    --default-background-color: #fadcc7;
+    --default-midtone-color: #facbad;
+    --default-highlight-colort: ;
+}
+
+html {
+    box-sizing: border-box;
+}
+
+* {
+    box-sizing: inherit;
+}
+
+header {
+    --side-menu-width: max(15vw, 200px);
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Italiana";
+    margin: 0;
+    padding: 0;
+    background-color: var(--default-background-color);
+}
+
+button {
+    display: flex;
+    margin: auto;
+    width: 50vw;
+    height: 50vh;
+}
+
+h2 {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 64px;
+    line-height: 75px;
+}
+
+h3 {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 38px;
+}
+
+.unselectable {
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+.name-of-the-song-container {
+    width: fit-content;
+    margin: auto;
+    padding: 35px;
+
+    text-align: center;
+}
+
+.side-menu {
+    position: fixed;
+    left: calc(var(--side-menu-width) * -1);
+    transition: translate 1s cubic-bezier(0.175, 0.885, 0.32, 1);
+}
+
+.side-menu-wrapper {
+    display: flex;
+}
+
+.side-menu-content {
+    display: flex;
+    --border-size: 10px;
+    background-color: var(--default-midtone-color);
+    width: calc(var(--side-menu-width));
+    height: calc(66vh - var(--border-size) * 2);
+    border: none;
+    border-radius: 0 0 18px 18px;
+    justify-content: center;
+}
+
+.side-menu-song-list {
+    padding: 15px;
+    overflow: hidden;
+    overflow-wrap: break-word;
+}
+
+.side-menu-song-list:has(li) {
+    font-size: 2em;
+}
+
+.side-menu-button {
+    width: 93px;
+    height: 75px;
+    background-color: var(--default-midtone-color);
+    border: none;
+    border-radius: 0 0 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.side-menu:hover {
+    translate: var(--side-menu-width);
+}
+
+.tab-content-container {
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+    align-items: center;
+}
+
+.tab-row {
+    width: 67vw;
+    height: 70px;
+    position: relative;
+}
+
+.tab-note {
+    position: absolute;
+    background-color: var(--default-background-color);
+}
+.measure-line {
+    position: absolute;
+    top: -10%;
+    width: 7px !important;
+    height: 125% !important;
+}
+
+.bottom-navbar {
+    position: fixed;
+    left: calc(50% - 352px);
+    bottom: -49px;
+    width: 704px;
+    height: 70px;
+    background-color: var(--default-midtone-color);
+    border: none;
+    border-radius: 18px 18px 0 0;
+    transition: translate 1s cubic-bezier(0.175, 0.885, 0.32, 1);
+}
+
+.bottom-navbar:hover {
+    translate: 0 -49px;
+}
+.bottom-navbar-container {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    justify-items: center;
+    grid-template-rows: 1fr 3fr;
+    grid-template-columns: 1fr;
+}
+
+.bottom-navbar-buttons-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.instrument-button {
+    width: 45px;
+    height: 45px;
+    background-color: var(--default-midtone-color);
+    border: 5px solid black;
+    border-radius: 9px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.instrument-button:active {
+    padding: 5px;
+}
+
+.instrument-selected {
+    border: 5px solid white;
+}
