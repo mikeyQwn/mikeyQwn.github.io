@@ -42,7 +42,6 @@ const renderNotes = (
         const rowIndex = Math.floor((note.measure - 1) / measuresInRow);
         const sectionIndex =
             ((note.measure - 1) % measuresInRow) * numberOfBeats + note.beat;
-        console.log(sectionIndex);
         const sectionWidth = 100 / numberOfSections;
         renderNote(
             rowElementsArray[rowIndex],
@@ -56,7 +55,9 @@ const renderRowMeasureLines = (
     rowElement,
     measuresInRow = DEFAULT_MEASURES_IN_ROW
 ) => {
-    const measureLineImg = createUnselectableImg("svg/measureLine.svg");
+    const measureLineImg = createUnselectableImg(
+        "./src/assets/svg/measureLine.svg"
+    );
     measureLineImg.classList.add("measure-line");
     for (let i = 1; i < measuresInRow; ++i) {
         const measure = measureLineImg.cloneNode();
@@ -80,7 +81,12 @@ const createUnselectableImg = (source) => {
 function renderRows(measuresCount, measuresInRow = DEFAULT_MEASURES_IN_ROW) {
     const numberOfRows = Math.ceil(measuresCount / measuresInRow);
     const rowArray = new Array(numberOfRows);
-    const tabRowSvg = createUnselectableImg("svg/tabRowStrings.svg");
+    console.debug("Accessing tabRowSvg");
+    const tabRowSvg = createUnselectableImg(
+        "./src/assets/svg/tabRowStrings.svg"
+    );
+    console.debug("Done acessing tabRowSvg");
+    console.debug(tabRowSvg);
     for (let i = 0; i < numberOfRows; ++i) {
         const row = createRow(tabRowSvg);
         container.appendChild(row);

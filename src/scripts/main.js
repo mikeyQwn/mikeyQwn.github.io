@@ -1,10 +1,4 @@
-import { CleanElecticGuitar } from "./instruments/guitars/cleanElecticGuitar.js";
-import {
-    generateGuitarKeyMap,
-    Guitar,
-    guitarTabSymbol
-} from "./instruments/guitars/guitar.js";
-import { getNoteFrequency } from "./noteString.js";
+import { Guitar, guitarTabSymbol } from "./instruments/guitars/guitar.js";
 import { renderInstruments, renderVisual } from "./render.js";
 
 renderInstruments();
