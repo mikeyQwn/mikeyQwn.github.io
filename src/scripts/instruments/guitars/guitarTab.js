@@ -20,7 +20,7 @@ export const generateGuitarKeyMap = (
     return tuning.map((e) => getAllNotesOfString(e, NUMBER_OF_FRETS));
 };
 
-export class Guitar {
+export class GuitarTab {
     constructor(tabulature, tuning) {
         this.tabulature = tabulature;
         this.keyMap = generateGuitarKeyMap(tuning);

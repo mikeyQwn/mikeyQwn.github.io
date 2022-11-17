@@ -1,14 +1,13 @@
-import { Guitar, guitarTabSymbol } from "./instruments/guitars/guitar.js";
+import { guitarTabSymbol, GuitarTab } from "./instruments/guitars/guitarTab.js";
+import { loadSong } from "./utils/loader.js";
 import { renderInstruments, renderVisual } from "./render.js";
 
 renderInstruments();
-const guitar = new Guitar([
-    new guitarTabSymbol(1, 1, 1, 1),
-    new guitarTabSymbol(1, 2, 1, 2),
-    new guitarTabSymbol(1, 3, 1, 3),
-    new guitarTabSymbol(1, 4, 1, 4),
-    new guitarTabSymbol(1, 5, 2, 1),
-    new guitarTabSymbol(1, 6, 2, 2)
-]);
 
-renderVisual(guitar.tabulature);
+async function main() {
+    const song = await loadSong(
+        "./src/assets/songs/MCR-ThankYou-For-The-Venom.json"
+    );
+    console.log(song);
+}
+main();

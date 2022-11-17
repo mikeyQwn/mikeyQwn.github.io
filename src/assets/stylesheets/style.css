@@ -30,7 +30,7 @@ header {
 }
 
 body {
-    font-family: "Italiana";
+    font-family: "Italiana", Arial, Helvetica, sans-serif;
     margin: 0;
     padding: 0;
     background-color: var(--default-background-color);
@@ -132,7 +132,14 @@ h3 {
 
 .tab-note {
     position: absolute;
-    background-color: var(--default-background-color);
+    font-family: "Times New Roman", Times, serif;
+    display: flex;
+    /* background-color: var(--default-background-color); */
+    font-size: 1.05em;
+    justify-content: center;
+    align-items: center;
+    width: 14px;
+    height: 14px;
 }
 .measure-line {
     position: absolute;

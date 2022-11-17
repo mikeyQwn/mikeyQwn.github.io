@@ -1,4 +1,4 @@
-import { generateGuitarKeyMap } from "./guitar.js";
+import { generateGuitarKeyMap } from "./guitarTab.js";
 
 const assetsFolder = "./src/assets/instruments/electric_guitar_clean-mp3";
 

@@ -22,15 +22,19 @@ export function renderInstruments() {
 }
 
 const renderNote = (rowEl, sectionWidth, note, index) => {
+    const topOffsetPercent = 20;
+    const offsetPercntDelta = (100 + topOffsetPercent) / 5;
+
     const noteEl = document.createElement("div");
     noteEl.classList.add("tab-note");
     noteEl.innerText = note.fret;
-    noteEl.style.left = `${sectionWidth * index}%`;
-    noteEl.style.top = `${(100 / 5) * (note.string - 1) - 10}%`;
+    noteEl.style.left = `${sectionWidth * index + sectionWidth / 2}%`;
+    noteEl.style.top = `${
+        offsetPercntDelta * (note.string - 1) - topOffsetPercent
+    }%`;
     noteEl.onclick = () => console.log(note);
     rowEl.appendChild(noteEl);
 };
-
 const renderNotes = (
     songTabulature,
     rowElementsArray,
@@ -38,10 +42,13 @@ const renderNotes = (
     measuresInRow = DEFAULT_MEASURES_IN_ROW
 ) => {
     songTabulature.forEach((note) => {
-        const numberOfSections = measuresInRow * numberOfBeats + 1;
+        const numberOfSections = measuresInRow * numberOfBeats;
         const rowIndex = Math.floor((note.measure - 1) / measuresInRow);
         const sectionIndex =
-            ((note.measure - 1) % measuresInRow) * numberOfBeats + note.beat;
+            ((note.measure - 1) % measuresInRow) * numberOfBeats +
+            note.beat -
+            1;
+        console.log(sectionIndex);
         const sectionWidth = 100 / numberOfSections;
         renderNote(
             rowElementsArray[rowIndex],
