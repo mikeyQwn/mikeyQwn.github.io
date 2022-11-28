@@ -1,6 +1,3 @@
-import { GenericNote } from "../../genericNote.js";
-import { getNoteHalfToneUp } from "../../noteString.js";
-
 const NUMBER_OF_FRETS = 24;
 
 const getAllNotesOfString = (firstNote, numberOfFrets) => {

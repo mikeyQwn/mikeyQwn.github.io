@@ -1,6 +1,5 @@
-import { guitarTabSymbol, GuitarTab } from "./instruments/guitars/guitarTab.js";
+import { renderInstruments } from "./render.js";
 import { loadSong } from "./utils/loader.js";
-import { renderInstruments, renderVisual } from "./render.js";
 
 renderInstruments();
 

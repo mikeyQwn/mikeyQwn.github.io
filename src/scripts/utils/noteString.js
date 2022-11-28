@@ -16,14 +16,14 @@ const MAPPING_WITH_FLATS = [
     ["Ab", 8],
     ["A", 9],
     ["Bb", 10],
-    ["B", 11],
+    ["B", 11]
 ];
 const MAPPING_FOR_SHARPS = [
     ["C#", 1],
     ["D#", 3],
     ["F#", 6],
     ["G#", 8],
-    ["A#", 10],
+    ["A#", 10]
 ];
 
 const NOTE_TO_NUMBER = new Map(MAPPING_WITH_FLATS);

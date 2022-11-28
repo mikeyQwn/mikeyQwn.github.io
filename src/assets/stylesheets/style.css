@@ -10,8 +10,10 @@
 }
 
 :root {
-    --default-background-color: #fadcc7;
-    --default-midtone-color: #facbad;
+    /* --default-background-color: #fadcc7; */
+    --default-background-color: beige;
+    /* --default-midtone-color: #facbad; */
+    --default-midtone-color: wheat;
     --default-highlight-colort: ;
 }
 
