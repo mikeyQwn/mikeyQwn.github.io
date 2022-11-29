@@ -115,3 +115,10 @@ export function updateName(name) {
     artistEl.innerText = artist;
     titleEl.innerText = title;
 }
+
+export function renderTuning(tuning) {
+    const tuningEl = document.createElement("div");
+    tuningEl.classList.add("tuning-element");
+    container.appendChild(tuningEl);
+    tuningEl.innerText = tuning;
+}

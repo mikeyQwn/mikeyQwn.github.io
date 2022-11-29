@@ -119,6 +119,16 @@ h3 {
     translate: var(--side-menu-width);
 }
 
+.tuning-element {
+    background-color: beige;
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    font-size: calc(70px / 7);
+    font-weight: bold;
+    width: 10px;
+    height: 70px;
+}
+
 .tab-content-container {
     display: flex;
     flex-direction: column;
