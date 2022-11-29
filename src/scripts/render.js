@@ -38,8 +38,8 @@ const renderNote = (rowEl, sectionWidth, note, index) => {
 const renderNotes = (
     songTabulature,
     rowElementsArray,
-    numberOfBeats = DEFAULT_NUMBER_OF_BEATS,
-    measuresInRow = DEFAULT_MEASURES_IN_ROW
+    measuresInRow = DEFAULT_MEASURES_IN_ROW,
+    numberOfBeats = DEFAULT_NUMBER_OF_BEATS
 ) => {
     songTabulature.forEach((note) => {
         const numberOfSections = measuresInRow * numberOfBeats;
@@ -48,7 +48,6 @@ const renderNotes = (
             ((note.measure - 1) % measuresInRow) * numberOfBeats +
             note.beat -
             1;
-        console.log(sectionIndex);
         const sectionWidth = 100 / numberOfSections;
         renderNote(
             rowElementsArray[rowIndex],
@@ -88,12 +87,9 @@ const createUnselectableImg = (source) => {
 function renderRows(measuresCount, measuresInRow = DEFAULT_MEASURES_IN_ROW) {
     const numberOfRows = Math.ceil(measuresCount / measuresInRow);
     const rowArray = new Array(numberOfRows);
-    console.debug("Accessing tabRowSvg");
     const tabRowSvg = createUnselectableImg(
         "./src/assets/svg/tabRowStrings.svg"
     );
-    console.debug("Done acessing tabRowSvg");
-    console.debug(tabRowSvg);
     for (let i = 0; i < numberOfRows; ++i) {
         const row = createRow(tabRowSvg);
         container.appendChild(row);
@@ -101,12 +97,13 @@ function renderRows(measuresCount, measuresInRow = DEFAULT_MEASURES_IN_ROW) {
     }
     return rowArray;
 }
-export function renderVisual(songTabulature) {
+export function renderVisual(songTabulature, measuresInRow, numberOfBeats) {
     const measuresCount = songTabulature.reduce(
         (prev, curr) => (prev < curr.measure ? curr.measure : prev),
         0
     );
-    const rowElementsArray = renderRows(measuresCount);
-    rowElementsArray.forEach((e) => renderRowMeasureLines(e));
-    renderNotes(songTabulature, rowElementsArray);
+    console.log({ measuresCount });
+    const rowElementsArray = renderRows(measuresCount, measuresInRow);
+    rowElementsArray.forEach((e) => renderRowMeasureLines(e, measuresInRow));
+    renderNotes(songTabulature, rowElementsArray, measuresInRow, numberOfBeats);
 }
