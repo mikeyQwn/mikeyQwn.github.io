@@ -4,6 +4,7 @@ const DEFAULT_MEASURES_IN_ROW = 2;
 const DEFAULT_NUMBER_OF_BEATS = 4;
 
 const container = document.getElementById("tab-content-container");
+const firstRowContainer = document.getElementById("first-tab-row-container");
 
 const instruments = [CleanElecticGuitar];
 
@@ -86,15 +87,21 @@ const createUnselectableImg = (source) => {
 };
 function renderRows(measuresCount, measuresInRow = DEFAULT_MEASURES_IN_ROW) {
     const numberOfRows = Math.ceil(measuresCount / measuresInRow);
+    console.debug({ numberOfRows });
     const rowArray = new Array(numberOfRows);
+    console.log({ rowArray });
     const tabRowSvg = createUnselectableImg(
         "./src/assets/svg/tabRowStrings.svg"
     );
-    for (let i = 0; i < numberOfRows; ++i) {
+    const firstRow = createRow(tabRowSvg);
+    firstRowContainer.appendChild(firstRow);
+    rowArray[0] = firstRow;
+    for (let i = 0; i < numberOfRows - 1; ++i) {
         const row = createRow(tabRowSvg);
         container.appendChild(row);
-        rowArray[i] = row;
+        rowArray[i + 1] = row;
     }
+    console.log(rowArray);
     return rowArray;
 }
 export function renderVisual(songTabulature, measuresInRow, numberOfBeats) {
@@ -119,6 +126,6 @@ export function updateName(name) {
 export function renderTuning(tuning) {
     const tuningEl = document.createElement("div");
     tuningEl.classList.add("tuning-element");
-    container.appendChild(tuningEl);
+    firstRowContainer.appendChild(tuningEl);
     tuningEl.innerText = tuning;
 }

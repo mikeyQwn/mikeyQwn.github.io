@@ -119,14 +119,19 @@ h3 {
     translate: var(--side-menu-width);
 }
 
+.first-tab-row-container {
+    display: flex;
+}
+
 .tuning-element {
-    background-color: beige;
     writing-mode: vertical-lr;
     text-orientation: upright;
-    font-size: calc(70px / 7);
-    font-weight: bold;
+    font-size: 12px;
+    font-weight: 700;
     width: 10px;
     height: 70px;
+    left: 10px;
+    translate: -3px -8px;
 }
 
 .tab-content-container {
