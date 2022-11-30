@@ -134,3 +134,11 @@ export function renderTuning(tuning) {
     firstRowContainer.appendChild(tuningEl);
     tuningEl.innerText = tuning;
 }
+
+export function renderSong(song) {
+    renderInstruments();
+    const { name, tempo, timeSignature, tuning, tabulature } = song;
+    renderTuning(tuning);
+    updateName(name);
+    renderVisual(tabulature, 2, 8);
+}
