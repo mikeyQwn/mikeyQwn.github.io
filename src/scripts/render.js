@@ -29,12 +29,15 @@ const renderNote = (rowEl, sectionWidth, note, index) => {
     const noteEl = document.createElement("div");
     noteEl.classList.add("tab-note");
     noteEl.innerText = note.fret;
-    noteEl.style.left = `${sectionWidth * index + sectionWidth / 2}%`;
+    console.log({ 1: noteEl.offsetWidth });
     noteEl.style.top = `${
         offsetPercntDelta * (note.string - 1) - topOffsetPercent
     }%`;
-    noteEl.onclick = () => console.log(note);
+    noteEl.onclick = () => console.debug(note);
     rowEl.appendChild(noteEl);
+    noteEl.style.left = `calc(${sectionWidth * index + sectionWidth / 2}% - ${
+        noteEl.offsetWidth / 2
+    }px)`;
 };
 const renderNotes = (
     songTabulature,
@@ -68,8 +71,10 @@ const renderRowMeasureLines = (
     measureLineImg.classList.add("measure-line");
     for (let i = 1; i < measuresInRow; ++i) {
         const measure = measureLineImg.cloneNode();
-        measure.style.left = `calc(${(100 / measuresInRow) * i}% - 3.5px)`;
         rowElement.appendChild(measure);
+        measure.style.left = `calc(${(100 / measuresInRow) * i}% - ${
+            measure.offsetWidth / 2
+        }px)`;
     }
 };
 const createRow = (tabRowSvg) => {
