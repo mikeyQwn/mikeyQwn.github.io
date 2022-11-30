@@ -130,6 +130,14 @@ export function renderTuning(tuning) {
     tuningEl.innerText = tuning;
 }
 
+export function renderPlayButton() {
+    const playButton = document.createElement("button");
+    playButton.classList.add("play-button");
+    playButton.innerText = "Play";
+    playButton.onclick = () => "";
+    document.body.appendChild(playButton);
+}
+
 export function renderSong(song) {
     renderInstruments();
     const { name, tempo, timeSignature, tabulature } = song;

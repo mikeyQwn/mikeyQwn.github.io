@@ -5,8 +5,6 @@ export class Song {
         this.timeSignature = timeSignature;
         this.tabulature = tabulature;
     }
+    calculateSong() {}
+    playSong() {}
 }
-
-export function playSong() {}
-
-export function calculateSong() {}

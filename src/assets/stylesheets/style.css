@@ -38,13 +38,6 @@ body {
     background-color: var(--default-background-color);
 }
 
-button {
-    display: flex;
-    margin: auto;
-    width: 50vw;
-    height: 50vh;
-}
-
 h2 {
     font-style: normal;
     font-weight: 400;
@@ -163,6 +156,14 @@ h3 {
     top: -10%;
     width: 7px !important;
     height: 125% !important;
+}
+
+.play-button {
+    width: 100px;
+    height: 100px;
+    position: fixed;
+    bottom: 5vh;
+    right: 5vw;
 }
 
 .bottom-navbar {
