@@ -29,7 +29,6 @@ const renderNote = (rowEl, sectionWidth, note, index) => {
     const noteEl = document.createElement("div");
     noteEl.classList.add("tab-note");
     noteEl.innerText = note.fret;
-    console.log({ 1: noteEl.offsetWidth });
     noteEl.style.top = `${
         offsetPercntDelta * (note.string - 1) - topOffsetPercent
     }%`;
@@ -92,9 +91,7 @@ const createUnselectableImg = (source) => {
 };
 function renderRows(measuresCount, measuresInRow = DEFAULT_MEASURES_IN_ROW) {
     const numberOfRows = Math.ceil(measuresCount / measuresInRow);
-    console.debug({ numberOfRows });
     const rowArray = new Array(numberOfRows);
-    console.log({ rowArray });
     const tabRowSvg = createUnselectableImg(
         "./src/assets/svg/tabRowStrings.svg"
     );
@@ -106,7 +103,6 @@ function renderRows(measuresCount, measuresInRow = DEFAULT_MEASURES_IN_ROW) {
         container.appendChild(row);
         rowArray[i + 1] = row;
     }
-    console.log(rowArray);
     return rowArray;
 }
 export function renderVisual(songTabulature, measuresInRow, numberOfBeats) {
@@ -114,7 +110,6 @@ export function renderVisual(songTabulature, measuresInRow, numberOfBeats) {
         (prev, curr) => (prev < curr.measure ? curr.measure : prev),
         0
     );
-    console.log({ measuresCount });
     const rowElementsArray = renderRows(measuresCount, measuresInRow);
     rowElementsArray.forEach((e) => renderRowMeasureLines(e, measuresInRow));
     renderNotes(songTabulature, rowElementsArray, measuresInRow, numberOfBeats);
