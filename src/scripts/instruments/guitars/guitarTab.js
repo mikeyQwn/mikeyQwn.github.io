@@ -1,3 +1,5 @@
+import { getNoteHalfToneUp } from "../../utils/noteString.js";
+
 const NUMBER_OF_FRETS = 24;
 
 const getAllNotesOfString = (firstNote, numberOfFrets) => {
@@ -20,8 +22,10 @@ export const generateGuitarKeyMap = (
 export class GuitarTab {
     constructor(tabulature, tuning) {
         this.tabulature = tabulature;
+        this.tuning = tuning;
         this.keyMap = generateGuitarKeyMap(tuning);
     }
+
     getArrayOfGenericNotes() {
         const arrayOfNotes = [];
         for (const note of this.tabulature) {
@@ -35,6 +39,15 @@ export class GuitarTab {
         }
         return arrayOfNotes;
     }
+
+    getTuning() {
+        return this.tuning.join("").replace(/\d/g, "");
+    }
+
+    getTabulature() {
+        return this.tabulature;
+    }
+
     static printArrayOfGuitarNotes(array) {
         const song = new Array(10).fill([]).map(() => new Array(6).fill("-"));
         for (const note of array) {

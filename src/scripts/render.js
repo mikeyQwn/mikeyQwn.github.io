@@ -132,8 +132,8 @@ export function renderTuning(tuning) {
 
 export function renderSong(song) {
     renderInstruments();
-    const { name, tempo, timeSignature, tuning, tabulature } = song;
-    renderTuning(tuning);
+    const { name, tempo, timeSignature, tabulature } = song;
+    renderTuning(tabulature.getTuning());
     updateName(name);
-    renderVisual(tabulature, 2, 8);
+    renderVisual(tabulature.getTabulature(), 2, 8);
 }
