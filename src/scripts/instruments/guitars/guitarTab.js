@@ -1,3 +1,4 @@
+import { GenericNote } from "../../song.js";
 import { getNoteHalfToneUp } from "../../utils/noteString.js";
 
 const NUMBER_OF_FRETS = 24;
@@ -14,7 +15,7 @@ const getAllNotesOfString = (firstNote, numberOfFrets) => {
 };
 
 export const generateGuitarKeyMap = (
-    tuning = ["E2", "A2", "D3", "G3", "B3", "E4"]
+    tuning = ["E4", "B3", "G3", "D3", "A2", "E2"]
 ) => {
     return tuning.map((e) => getAllNotesOfString(e, NUMBER_OF_FRETS));
 };
@@ -31,7 +32,7 @@ export class GuitarTab {
         for (const note of this.tabulature) {
             arrayOfNotes.push(
                 new GenericNote(
-                    this.keyMap[note.string][note.fret],
+                    this.keyMap[note.string - 1][note.fret],
                     note.measure,
                     note.beat
                 )

@@ -6,6 +6,5 @@ async function main() {
         "./src/assets/songs/MCR-ThankYou-For-The-Venom.json"
     );
     renderSong(song);
-    renderPlayButton();
 }
 main();

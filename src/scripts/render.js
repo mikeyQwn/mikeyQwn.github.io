@@ -1,4 +1,5 @@
 import { CleanElecticGuitar } from "./instruments/guitars/cleanElecticGuitar.js";
+import { Song } from "./song.js";
 
 const DEFAULT_MEASURES_IN_ROW = 2;
 const DEFAULT_NUMBER_OF_BEATS = 4;
@@ -130,11 +131,11 @@ export function renderTuning(tuning) {
     tuningEl.innerText = tuning;
 }
 
-export function renderPlayButton() {
+export function renderPlayButton(song) {
     const playButton = document.createElement("button");
     playButton.classList.add("play-button");
     playButton.innerText = "Play";
-    playButton.onclick = () => "";
+    playButton.onclick = () => song.playSong();
     document.body.appendChild(playButton);
 }
 
@@ -144,4 +145,5 @@ export function renderSong(song) {
     renderTuning(tabulature.getTuning());
     updateName(name);
     renderVisual(tabulature.getTabulature(), 2, 8);
+    renderPlayButton(song);
 }
