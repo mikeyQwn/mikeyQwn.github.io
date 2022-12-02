@@ -45,8 +45,6 @@ export class Song {
     }
 
     playSong(context) {
-        console.log(this.tabulature);
-        console.log({ len: this.getSongLength() });
         const calculatedSong = this.calculateSong();
         calculatedSong.forEach((genericNote) =>
             playNote(
