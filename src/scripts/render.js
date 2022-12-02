@@ -135,7 +135,7 @@ export function renderPlayButton(song) {
     const playButton = document.createElement("button");
     playButton.classList.add("play-button");
     playButton.innerText = "Play";
-    playButton.onclick = () => song.playSong();
+    song.handlePlayButton(playButton);
     document.body.appendChild(playButton);
 }
 

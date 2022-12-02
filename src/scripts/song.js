@@ -17,16 +17,27 @@ export class Song {
         return genericNotes;
     }
 
-    playSong() {
-        console.log("Hey!");
+    playSong(context) {
         console.log(this.tabulature);
         const calculatedSong = this.calculateSong();
         calculatedSong.forEach((genericNote, i) =>
-            setTimeout(
-                () => playNote(getNoteFrequency(genericNote.note), "sine"),
-                250 * i
-            )
+            playNote(context, i / 4, getNoteFrequency(genericNote.note), "sine")
         );
+    }
+
+    handlePlayButton(button) {
+        button.isPlaying = false;
+        button.context = new AudioContext();
+        this.playSong(button.context);
+        button.context.suspend();
+        button.onclick = () => {
+            if (!button.isPlaying) {
+                button.context.resume();
+            }
+            if (button.isPlaying) button.context.suspend();
+            button.isPlaying = !button.isPlaying;
+            button.innerText = button.isPlaying ? "Pause" : "Play";
+        };
     }
 }
 
