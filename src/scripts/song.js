@@ -8,12 +8,32 @@ export class Song {
         this.timeSignature = timeSignature;
         this.tabulature = tabulature;
         this.beatsInMeasure = parseInt(timeSignature.split("/")[0]);
+        this.beatLength = 60 / this.tempo / (this.beatsInMeasure === 8 ? 2 : 1);
     }
 
     getNoteTimeInSeconds(beat, measure) {
-        const beatLength =
-            60 / this.tempo / (this.beatsInMeasure === 8 ? 2 : 1);
-        return ((measure - 1) * this.beatsInMeasure + (beat - 1)) * beatLength;
+        return (
+            ((measure - 1) * this.beatsInMeasure + (beat - 1)) * this.beatLength
+        );
+    }
+
+    getBeatAndMeasureFromTime(time) {
+        const beat = time / this.beatLength;
+        return {
+            beat: (beat % this.beatsInMeasure) + 1,
+            measure: Math.floor(beat / this.beatsInMeasure) + 1
+        };
+    }
+
+    getSongLength() {
+        return this.tabulature
+            .getArrayOfGenericNotes()
+            .reduce((previous, current) => {
+                return Math.max(
+                    previous,
+                    this.getNoteTimeInSeconds(current.beat, current.measure)
+                );
+            }, 0);
     }
 
     calculateSong() {
@@ -26,6 +46,7 @@ export class Song {
 
     playSong(context) {
         console.log(this.tabulature);
+        console.log({ len: this.getSongLength() });
         const calculatedSong = this.calculateSong();
         calculatedSong.forEach((genericNote) =>
             playNote(
@@ -35,21 +56,32 @@ export class Song {
                     genericNote.measure
                 ),
                 getNoteFrequency(genericNote.note),
-                "sine"
+                "sine",
+                this.beatLength
             )
         );
     }
 
-    handlePlayButton(button) {
-        button.isPlaying = false;
+    restartSong(button) {
         button.context = new AudioContext();
         this.playSong(button.context);
         button.context.suspend();
+    }
+
+    handlePlayButton(button) {
+        button.isPlaying = false;
+        this.restartSong(button);
         button.onclick = () => {
             if (!button.isPlaying) {
                 button.context.resume();
             }
-            if (button.isPlaying) button.context.suspend();
+            if (button.isPlaying) {
+                button.context.suspend();
+            }
+            if (button.context.currentTime > this.getSongLength()) {
+                this.restartSong(button);
+                button.isPlaying = true;
+            }
             button.isPlaying = !button.isPlaying;
             button.innerText = button.isPlaying ? "Pause" : "Play";
         };
