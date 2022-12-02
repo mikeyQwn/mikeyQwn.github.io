@@ -7,6 +7,13 @@ export class Song {
         this.tempo = tempo;
         this.timeSignature = timeSignature;
         this.tabulature = tabulature;
+        this.beatsInMeasure = parseInt(timeSignature.split("/")[0]);
+    }
+
+    getNoteTimeInSeconds(beat, measure) {
+        const beatLength =
+            60 / this.tempo / (this.beatsInMeasure === 8 ? 2 : 1);
+        return ((measure - 1) * this.beatsInMeasure + (beat - 1)) * beatLength;
     }
 
     calculateSong() {
@@ -20,8 +27,16 @@ export class Song {
     playSong(context) {
         console.log(this.tabulature);
         const calculatedSong = this.calculateSong();
-        calculatedSong.forEach((genericNote, i) =>
-            playNote(context, i / 8, getNoteFrequency(genericNote.note), "sine")
+        calculatedSong.forEach((genericNote) =>
+            playNote(
+                context,
+                this.getNoteTimeInSeconds(
+                    genericNote.beat,
+                    genericNote.measure
+                ),
+                getNoteFrequency(genericNote.note),
+                "sine"
+            )
         );
     }
 
