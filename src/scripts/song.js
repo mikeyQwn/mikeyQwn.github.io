@@ -21,7 +21,7 @@ export class Song {
         console.log(this.tabulature);
         const calculatedSong = this.calculateSong();
         calculatedSong.forEach((genericNote, i) =>
-            playNote(context, i / 4, getNoteFrequency(genericNote.note), "sine")
+            playNote(context, i / 8, getNoteFrequency(genericNote.note), "sine")
         );
     }
 
