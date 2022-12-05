@@ -1,5 +1,6 @@
 import { playNote } from "./synthesizer.js";
 import { getNoteFrequency } from "./utils/noteString.js";
+import { createUnselectableImg } from "./utils/createUnselectableImage.js";
 
 export class Song {
     constructor(name, tempo, timeSignature, tabulature) {
@@ -58,31 +59,6 @@ export class Song {
                 this.beatLength
             )
         );
-    }
-
-    restartSong(button) {
-        button.context = new AudioContext();
-        this.playSong(button.context);
-        button.context.suspend();
-    }
-
-    handlePlayButton(button) {
-        button.isPlaying = false;
-        this.restartSong(button);
-        button.onclick = () => {
-            if (!button.isPlaying) {
-                button.context.resume();
-            }
-            if (button.isPlaying) {
-                button.context.suspend();
-            }
-            if (button.context.currentTime > this.getSongLength()) {
-                this.restartSong(button);
-                button.isPlaying = true;
-            }
-            button.isPlaying = !button.isPlaying;
-            button.innerText = button.isPlaying ? "Pause" : "Play";
-        };
     }
 }
 

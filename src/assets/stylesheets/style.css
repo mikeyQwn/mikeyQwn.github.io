@@ -14,7 +14,7 @@
     --default-background-color: #fef6f4;
     /* --default-midtone-color: #facbad; */
     --default-midtone-color: #f5eae7;
-    --default-highlight-colort: ;
+    --default-highlight-colort: #f55951;
 }
 
 html {
@@ -159,11 +159,18 @@ h3 {
 }
 
 .play-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 18px;
     width: 100px;
     height: 100px;
     position: fixed;
-    bottom: 5vh;
-    right: 5vw;
+    bottom: 28px;
+    right: 59px;
+    border-radius: 10px;
+    border: 1px sold black;
+    background-color: var(--default-midtone-color);
 }
 
 .bottom-navbar {

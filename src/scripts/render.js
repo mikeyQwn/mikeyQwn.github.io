@@ -1,5 +1,7 @@
 import { CleanElecticGuitar } from "./instruments/guitars/cleanElecticGuitar.js";
 import { Song } from "./song.js";
+import { createUnselectableImg } from "./utils/createUnselectableImage.js";
+import { PlayButton } from "./playButton.js";
 
 const DEFAULT_MEASURES_IN_ROW = 2;
 const DEFAULT_NUMBER_OF_BEATS = 4;
@@ -83,13 +85,6 @@ const createRow = (tabRowSvg) => {
     row.appendChild(tabRowSvg.cloneNode());
     return row;
 };
-const createUnselectableImg = (source) => {
-    const tabRowImg = new Image();
-    tabRowImg.src = source;
-    tabRowImg.classList.add("unselectable");
-    tabRowImg.style.width = tabRowImg.style.height = "100%";
-    return tabRowImg;
-};
 function renderRows(measuresCount, measuresInRow = DEFAULT_MEASURES_IN_ROW) {
     const numberOfRows = Math.ceil(measuresCount / measuresInRow);
     const rowArray = new Array(numberOfRows);
@@ -132,11 +127,8 @@ export function renderTuning(tuning) {
 }
 
 export function renderPlayButton(song) {
-    const playButton = document.createElement("button");
-    playButton.classList.add("play-button");
-    playButton.innerText = "Play";
-    song.handlePlayButton(playButton);
-    document.body.appendChild(playButton);
+    const playButton = new PlayButton(song);
+    document.body.appendChild(playButton.getElement());
 }
 
 export function renderSong(song) {
