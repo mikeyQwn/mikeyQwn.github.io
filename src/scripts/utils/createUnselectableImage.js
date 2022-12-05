@@ -7,7 +7,6 @@ function createOneUnselectableImg(source) {
 }
 
 export function createUnselectableImg(source, ...otherSources) {
-    console.log(source, otherSources);
     if (otherSources.length === 0) return createOneUnselectableImg(source);
     return [
         createOneUnselectableImg(source),

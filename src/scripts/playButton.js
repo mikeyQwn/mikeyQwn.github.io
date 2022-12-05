@@ -4,7 +4,6 @@ const [buttonPlayImg, buttonPauseImg] = createUnselectableImg(
     "./src/assets/svg/buttonPlay.svg",
     "./src/assets/svg/buttonPause.svg"
 );
-console.log(buttonPlayImg, buttonPauseImg);
 
 export class PlayButton {
     isPlaying = false;
