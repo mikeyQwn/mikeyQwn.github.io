@@ -173,6 +173,21 @@ h3 {
     background-color: var(--default-midtone-color);
 }
 
+.toggle-midi-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 18px;
+    width: 100px;
+    height: 100px;
+    position: fixed;
+    top: 28px;
+    right: 59px;
+    border-radius: 10px;
+    border: 1px sold black;
+    background-color: var(--default-midtone-color);
+}
+
 .bottom-navbar {
     position: fixed;
     left: calc(50% - 352px);

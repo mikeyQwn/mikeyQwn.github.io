@@ -131,6 +131,12 @@ export function renderPlayButton(song) {
     document.body.appendChild(playButton.getElement());
 }
 
+function renderToggleIsMidiButton(song) {
+    const toggleIsMidiButton = document.createElement("button");
+    toggleIsMidiButton.classList.add("toggle-midi-button");
+    document.body.appendChild(toggleIsMidiButton);
+}
+
 export function renderSong(song) {
     renderInstruments();
     const { name, tempo, timeSignature, tabulature } = song;
@@ -138,4 +144,5 @@ export function renderSong(song) {
     updateName(name);
     renderVisual(tabulature.getTabulature(), 2, 8);
     renderPlayButton(song);
+    renderToggleIsMidiButton(song);
 }
