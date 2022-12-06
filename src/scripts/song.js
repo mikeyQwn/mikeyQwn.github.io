@@ -1,4 +1,5 @@
 import { CleanElecticGuitar } from "./instruments/guitars/cleanElecticGuitar.js";
+import { playNote } from "./synthesizer.js";
 import { getNoteFrequency } from "./utils/noteString.js";
 
 export class Song {
@@ -63,8 +64,6 @@ export class Song {
             this.beatLength,
             this
         );
-        this.audioManager.play();
-
         // calculatedSong.forEach((genericNote) =>
         //     playNote(
         //         context,
@@ -90,7 +89,7 @@ class AudioManager {
         this.currentNoteIter = currentNoteIter;
         this.currentNoteValue = this.currentNoteIter.next().value;
         this.isPaused = true;
-        this.isMidi = false;
+        this.isMidi = true;
         this.instrument = instrument;
         this.songLength = songLength;
         this.beatLength = beatLength;
@@ -118,12 +117,21 @@ class AudioManager {
     playLoop() {
         if (this.isPaused) return;
         if (this.songLength < this.context.currentTime) this.restart();
-        if (!this.isMidi) {
-            while (this.currentNoteValue.time < this.context.currentTime) {
+        if (!this.currentNoteValue) return;
+        while (this.currentNoteValue.time < this.context.currentTime) {
+            if (!this.isMidi) {
                 this.currentNoteValue.audio.play();
-                this.currentNoteValue = this.currentNoteIter.next().value;
-                console.log(this.currentNoteValue);
+            } else {
+                playNote(
+                    this.context,
+                    0,
+                    this.currentNoteValue.frequency,
+                    "sawtooth",
+                    this.beatLength
+                );
             }
+            this.currentNoteValue = this.currentNoteIter.next().value;
+            if (!this.currentNoteValue) return;
         }
         window.requestAnimationFrame(this.playLoop.bind(this));
     }
