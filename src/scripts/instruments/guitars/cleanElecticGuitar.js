@@ -8,8 +8,8 @@ export class CleanElecticGuitar {
     constructor(tuning) {
         this.keyMap = generateGuitarKeyMap(tuning);
     }
-    getAudio(note) {
-        return new Audio(`${assetsFolder}/notes${note}.mp3`);
+    static getAudio(note) {
+        return new Audio(`${assetsFolder}/notes/${note}.mp3`);
     }
 
     static getIcon() {

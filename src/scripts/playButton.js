@@ -1,3 +1,4 @@
+import { CleanElecticGuitar } from "./instruments/guitars/cleanElecticGuitar.js";
 import { createUnselectableImg } from "./utils/createUnselectableImage.js";
 
 const [buttonPlayImg, buttonPauseImg] = createUnselectableImg(
@@ -19,23 +20,12 @@ export class PlayButton {
     }
 
     restartSong() {
-        this.context = new AudioContext();
-        this.song.playSong(this.context);
-        this.context.suspend();
+        this.song.initAudioManager(CleanElecticGuitar);
     }
 
     handleOnclick() {
         this.element.onclick = () => {
-            if (!this.isPlaying) {
-                this.context.resume();
-            }
-            if (this.isPlaying) {
-                this.context.suspend();
-            }
-            if (this.context.currentTime > this.song.getSongLength()) {
-                this.restartSong(this);
-                this.isPlaying = true;
-            }
+            this.song.getAudioManager().togglePause();
             this.toggleIsPlaying();
         };
     }
