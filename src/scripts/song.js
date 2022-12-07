@@ -114,6 +114,10 @@ class AudioManager {
         }
     }
 
+    toggleIsMidi() {
+        this.isMidi = !this.isMidi;
+    }
+
     playLoop() {
         if (this.isPaused) return;
         if (this.songLength < this.context.currentTime) this.restart();
