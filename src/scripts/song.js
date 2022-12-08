@@ -89,6 +89,7 @@ class AudioManager {
         this.context.suspend();
         this.currentNoteIter = currentNoteIter;
         this.currentNoteValue = this.currentNoteIter.next().value;
+        this.previousNoteValue = this.currentNoteIter.value;
         if (this.currentNoteValue.element.classList.contains("selected-note"))
             this.currentNoteValue.element.classList.remove("selected-note");
         this.isPaused = true;
@@ -137,10 +138,14 @@ class AudioManager {
                     this.beatLength
                 );
             }
-            this.currentNoteValue.element.classList.remove("selected-note");
+            if (this.previousNoteValue)
+                this.previousNoteValue.element.classList.remove(
+                    "selected-note"
+                );
+            this.previousNoteValue = this.currentNoteValue;
             this.currentNoteValue = this.currentNoteIter.next().value;
+            this.previousNoteValue.element.classList.add("selected-note");
             if (!this.currentNoteValue) return;
-            this.currentNoteValue.element.classList.add("selected-note");
         }
         window.requestAnimationFrame(this.playLoop.bind(this));
     }
