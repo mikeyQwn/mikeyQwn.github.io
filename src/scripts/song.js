@@ -49,12 +49,13 @@ export class Song {
     initAudioManager(instrument) {
         const calculatedSong = this.calculateSong();
         const audioManagerArray = calculatedSong.map((genericNote) => {
-            const { beat, measure, note } = genericNote;
+            const { beat, measure, note, element } = genericNote;
             const audio = instrument.getAudio(note);
             return {
                 time: this.getNoteTimeInSeconds(beat, measure),
                 frequency: getNoteFrequency(note),
-                audio
+                audio,
+                element
             };
         });
         this.audioManager = new AudioManager(
@@ -134,6 +135,7 @@ class AudioManager {
                     this.beatLength
                 );
             }
+            this.currentNoteValue.element.style.backgroundColor = "black";
             this.currentNoteValue = this.currentNoteIter.next().value;
             if (!this.currentNoteValue) return;
         }
@@ -146,9 +148,10 @@ class AudioManager {
 }
 
 export class GenericNote {
-    constructor(note, measure, beat) {
+    constructor(note, measure, beat, element) {
         this.note = note;
         this.measure = measure;
         this.beat = beat;
+        this.element = element;
     }
 }

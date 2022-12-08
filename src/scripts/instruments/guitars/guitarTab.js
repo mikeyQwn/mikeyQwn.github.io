@@ -34,7 +34,8 @@ export class GuitarTab {
                 new GenericNote(
                     this.keyMap[note.string - 1][note.fret],
                     note.measure,
-                    note.beat
+                    note.beat,
+                    note.element
                 )
             );
         }

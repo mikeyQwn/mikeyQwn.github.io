@@ -40,6 +40,7 @@ const renderNote = (rowEl, sectionWidth, note, index) => {
     noteEl.style.left = `calc(${sectionWidth * index + sectionWidth / 2}% - ${
         noteEl.offsetWidth / 2
     }px)`;
+    return noteEl;
 };
 const renderNotes = (
     songTabulature,
@@ -55,7 +56,7 @@ const renderNotes = (
             note.beat -
             1;
         const sectionWidth = 100 / numberOfSections;
-        renderNote(
+        note.element = renderNote(
             rowElementsArray[rowIndex],
             sectionWidth,
             note,
