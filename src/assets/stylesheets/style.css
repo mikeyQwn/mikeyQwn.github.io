@@ -151,6 +151,12 @@ h3 {
     width: 14px;
     height: 14px;
 }
+
+.selected-note {
+    background-color: white;
+    border: 1px solid black;
+}
+
 .measure-line {
     position: absolute;
     top: -10%;

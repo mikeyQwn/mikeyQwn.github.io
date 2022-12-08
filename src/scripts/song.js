@@ -89,6 +89,8 @@ class AudioManager {
         this.context.suspend();
         this.currentNoteIter = currentNoteIter;
         this.currentNoteValue = this.currentNoteIter.next().value;
+        if (this.currentNoteValue.element.classList.contains("selected-note"))
+            this.currentNoteValue.element.classList.remove("selected-note");
         this.isPaused = true;
         this.isMidi = true;
         this.instrument = instrument;
@@ -135,9 +137,10 @@ class AudioManager {
                     this.beatLength
                 );
             }
-            this.currentNoteValue.element.style.backgroundColor = "black";
+            this.currentNoteValue.element.classList.remove("selected-note");
             this.currentNoteValue = this.currentNoteIter.next().value;
             if (!this.currentNoteValue) return;
+            this.currentNoteValue.element.classList.add("selected-note");
         }
         window.requestAnimationFrame(this.playLoop.bind(this));
     }
