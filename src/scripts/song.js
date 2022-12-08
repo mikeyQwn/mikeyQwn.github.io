@@ -89,7 +89,7 @@ class AudioManager {
         this.context.suspend();
         this.currentNoteIter = currentNoteIter;
         this.currentNoteValue = this.currentNoteIter.next().value;
-        this.previousNoteValue = this.currentNoteIter.value;
+        this.previousNoteValueArr = [this.currentNoteIter.value];
         if (this.currentNoteValue.element.classList.contains("selected-note"))
             this.currentNoteValue.element.classList.remove("selected-note");
         this.isPaused = true;
@@ -126,6 +126,8 @@ class AudioManager {
         if (this.isPaused) return;
         if (this.songLength < this.context.currentTime) this.restart();
         if (!this.currentNoteValue) return;
+
+        let cycle = 0;
         while (this.currentNoteValue.time < this.context.currentTime) {
             if (!this.isMidi) {
                 this.currentNoteValue.audio.play();
@@ -138,15 +140,24 @@ class AudioManager {
                     this.beatLength
                 );
             }
-            if (this.previousNoteValue)
-                this.previousNoteValue.element.classList.remove(
-                    "selected-note"
-                );
-            this.previousNoteValue = this.currentNoteValue;
+            if (this.previousNoteValueArr)
+                this.previousNoteValueArr.forEach((item) => {
+                    if (item) item.element.classList.remove("selected-note");
+                });
+            if (cycle < 1) {
+                this.previousNoteValueArr = [this.currentNoteValue];
+            } else {
+                this.previousNoteValueArr.push(this.currentNoteValue);
+            }
             this.currentNoteValue = this.currentNoteIter.next().value;
-            this.previousNoteValue.element.classList.add("selected-note");
+            if (this.previousNoteValueArr)
+                this.previousNoteValueArr.forEach((item) => {
+                    if (item) item.element.classList.add("selected-note");
+                });
             if (!this.currentNoteValue) return;
+            ++cycle;
         }
+        cycle = 0;
         window.requestAnimationFrame(this.playLoop.bind(this));
     }
     start;
