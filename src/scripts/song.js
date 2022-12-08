@@ -90,12 +90,10 @@ class AudioManager {
         this.currentNoteIter = currentNoteIter;
         this.currentNoteValue = this.currentNoteIter.next().value;
         this.previousNoteValueArr = [this.currentNoteIter.value];
-        if (this.currentNoteValue.element.classList.contains("selected-note"))
-            this.currentNoteValue.element.classList.remove("selected-note");
         this.isPaused = true;
         this.isMidi = true;
         this.instrument = instrument;
-        this.songLength = songLength;
+        this.songLength = songLength + 1;
         this.beatLength = beatLength;
         this.song = song;
     }
@@ -124,7 +122,10 @@ class AudioManager {
 
     playLoop() {
         if (this.isPaused) return;
-        if (this.songLength < this.context.currentTime) this.restart();
+        if (this.songLength < this.context.currentTime) {
+            this.restart();
+            return;
+        }
         if (!this.currentNoteValue) return;
 
         let cycle = 0;
@@ -154,7 +155,11 @@ class AudioManager {
                 this.previousNoteValueArr.forEach((item) => {
                     if (item) item.element.classList.add("selected-note");
                 });
-            if (!this.currentNoteValue) return;
+            if (!this.currentNoteValue) {
+                setTimeout(this.restart.bind(this), 1000);
+                return;
+            }
+
             ++cycle;
         }
         cycle = 0;
@@ -162,6 +167,9 @@ class AudioManager {
     }
     start;
     restart() {
+        this.previousNoteValueArr.forEach((item) => {
+            if (item) item.element.classList.remove("selected-note");
+        });
         this.song.initAudioManager(CleanElecticGuitar);
     }
 }
