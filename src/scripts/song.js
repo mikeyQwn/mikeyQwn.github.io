@@ -87,9 +87,9 @@ class AudioManager {
     constructor(currentNoteIter, instrument, songLength, beatLength, song) {
         this.context = new AudioContext();
         this.context.suspend();
-        this.currentNoteIter = currentNoteIter;
-        this.currentNoteValue = this.currentNoteIter.next().value;
-        this.previousNoteValueArr = [this.currentNoteIter.value];
+        this.nextNoteIter = currentNoteIter;
+        this.nextNoteValue = this.nextNoteIter.next().value;
+        this.currentNotesValuesArr = [this.nextNoteIter.value];
         this.isPaused = true;
         this.isMidi = true;
         this.instrument = instrument;
@@ -120,42 +120,50 @@ class AudioManager {
         this.isMidi = !this.isMidi;
     }
 
+    selectCurrentNotes() {
+        if (this.currentNotesValuesArr)
+            this.currentNotesValuesArr.forEach((item) => {
+                if (item) item.element.classList.add("selected-note");
+            });
+    }
+
+    unselectCurrentNotes() {
+        if (this.currentNotesValuesArr)
+            this.currentNotesValuesArr.forEach((item) => {
+                if (item) item.element.classList.remove("selected-note");
+            });
+    }
+
     playLoop() {
         if (this.isPaused) return;
         if (this.songLength < this.context.currentTime) {
             this.restart();
             return;
         }
-        if (!this.currentNoteValue) return;
+        if (!this.nextNoteValue) return;
 
         let cycle = 0;
-        while (this.currentNoteValue.time < this.context.currentTime) {
+        while (this.nextNoteValue.time < this.context.currentTime) {
             if (!this.isMidi) {
-                this.currentNoteValue.audio.play();
+                this.nextNoteValue.audio.play();
             } else {
                 playNote(
                     this.context,
                     0,
-                    this.currentNoteValue.frequency,
+                    this.nextNoteValue.frequency,
                     "sawtooth",
                     this.beatLength
                 );
             }
-            if (this.previousNoteValueArr)
-                this.previousNoteValueArr.forEach((item) => {
-                    if (item) item.element.classList.remove("selected-note");
-                });
+            this.unselectCurrentNotes();
             if (cycle < 1) {
-                this.previousNoteValueArr = [this.currentNoteValue];
+                this.currentNotesValuesArr = [this.nextNoteValue];
             } else {
-                this.previousNoteValueArr.push(this.currentNoteValue);
+                this.currentNotesValuesArr.push(this.nextNoteValue);
             }
-            this.currentNoteValue = this.currentNoteIter.next().value;
-            if (this.previousNoteValueArr)
-                this.previousNoteValueArr.forEach((item) => {
-                    if (item) item.element.classList.add("selected-note");
-                });
-            if (!this.currentNoteValue) {
+            this.nextNoteValue = this.nextNoteIter.next().value;
+            this.selectCurrentNotes();
+            if (!this.nextNoteValue) {
                 setTimeout(this.restart.bind(this), 1000);
                 return;
             }
@@ -167,7 +175,7 @@ class AudioManager {
     }
     start;
     restart() {
-        this.previousNoteValueArr.forEach((item) => {
+        this.currentNotesValuesArr.forEach((item) => {
             if (item) item.element.classList.remove("selected-note");
         });
         this.song.initAudioManager(CleanElecticGuitar);
