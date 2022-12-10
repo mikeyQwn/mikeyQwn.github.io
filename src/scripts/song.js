@@ -149,9 +149,7 @@ class AudioManager {
             } else {
                 playNote(
                     this.context,
-                    0,
                     this.nextNoteValue.frequency,
-                    "sawtooth",
                     this.beatLength
                 );
             }
@@ -167,10 +165,8 @@ class AudioManager {
                 setTimeout(this.restart.bind(this), 1000);
                 return;
             }
-
             ++cycle;
         }
-        cycle = 0;
         window.requestAnimationFrame(this.playLoop.bind(this));
     }
     start;
