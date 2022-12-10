@@ -1,151 +1,24 @@
-import { CleanElecticGuitar } from "./instruments/guitars/cleanElecticGuitar.js";
+import { instrumentSelector } from "./components/instrumentsSelector.js";
+import { nameSection } from "./components/nameSection.js";
+import { tabulatureSection } from "./components/tabulatureSection.js";
+import { toggleIsMidiButton } from "./components/toggleIsMidiButton.js";
+import { tuninigElement } from "./components/tuningElement.js";
 import { PlayButton } from "./playButton.js";
-import { createUnselectableImg } from "./utils/createUnselectableImage.js";
-
-const DEFAULT_MEASURES_IN_ROW = 2;
-const DEFAULT_NUMBER_OF_BEATS = 4;
-
-const container = document.getElementById("tab-content-container");
-const firstRowContainer = document.getElementById("first-tab-row-container");
-
-const instruments = [CleanElecticGuitar];
-
-export function renderInstruments() {
-    const instrumentSection = document.getElementById(
-        "bottom-navbar-buttons-container"
-    );
-
-    for (const instrument of instruments) {
-        const button = document.createElement("button");
-        button.classList.add("instrument-button");
-        button.appendChild(instrument.getIcon());
-
-        instrumentSection.appendChild(button);
-    }
-}
-
-const renderNote = (rowEl, sectionWidth, note, index) => {
-    const topOffsetPercent = 20;
-    const offsetPercntDelta = (100 + topOffsetPercent) / 5;
-
-    const noteEl = document.createElement("div");
-    noteEl.classList.add("tab-note");
-    noteEl.innerText = note.fret;
-    noteEl.style.top = `${
-        offsetPercntDelta * (note.string - 1) - topOffsetPercent
-    }%`;
-    noteEl.onclick = () => console.debug(note);
-    rowEl.appendChild(noteEl);
-    noteEl.style.left = `calc(${sectionWidth * index + sectionWidth / 2}% - ${
-        noteEl.offsetWidth / 2
-    }px)`;
-    return noteEl;
-};
-const renderNotes = (
-    songTabulature,
-    rowElementsArray,
-    measuresInRow = DEFAULT_MEASURES_IN_ROW,
-    numberOfBeats = DEFAULT_NUMBER_OF_BEATS
-) => {
-    songTabulature.forEach((note) => {
-        const numberOfSections = measuresInRow * numberOfBeats;
-        const rowIndex = Math.floor((note.measure - 1) / measuresInRow);
-        const sectionIndex =
-            ((note.measure - 1) % measuresInRow) * numberOfBeats +
-            note.beat -
-            1;
-        const sectionWidth = 100 / numberOfSections;
-        note.element = renderNote(
-            rowElementsArray[rowIndex],
-            sectionWidth,
-            note,
-            sectionIndex
-        );
-    });
-};
-const renderRowMeasureLines = (
-    rowElement,
-    measuresInRow = DEFAULT_MEASURES_IN_ROW
-) => {
-    const measureLineImg = createUnselectableImg(
-        "./src/assets/svg/measureLine.svg"
-    );
-    measureLineImg.classList.add("measure-line");
-    for (let i = 1; i < measuresInRow; ++i) {
-        const measure = measureLineImg.cloneNode();
-        rowElement.appendChild(measure);
-        measure.style.left = `calc(${(100 / measuresInRow) * i}% - ${
-            measure.offsetWidth / 2
-        }px)`;
-    }
-};
-const createRow = (tabRowSvg) => {
-    const row = document.createElement("div");
-    row.classList.add("tab-row");
-    row.appendChild(tabRowSvg.cloneNode());
-    return row;
-};
-function renderRows(measuresCount, measuresInRow = DEFAULT_MEASURES_IN_ROW) {
-    const numberOfRows = Math.ceil(measuresCount / measuresInRow);
-    const rowArray = new Array(numberOfRows);
-    const tabRowSvg = createUnselectableImg(
-        "./src/assets/svg/tabRowStrings.svg"
-    );
-    const firstRow = createRow(tabRowSvg);
-    firstRowContainer.appendChild(firstRow);
-    rowArray[0] = firstRow;
-    for (let i = 0; i < numberOfRows - 1; ++i) {
-        const row = createRow(tabRowSvg);
-        container.appendChild(row);
-        rowArray[i + 1] = row;
-    }
-    return rowArray;
-}
-export function renderVisual(songTabulature, measuresInRow, numberOfBeats) {
-    const measuresCount = songTabulature.reduce(
-        (prev, curr) => (prev < curr.measure ? curr.measure : prev),
-        0
-    );
-    const rowElementsArray = renderRows(measuresCount, measuresInRow);
-    rowElementsArray.forEach((e) => renderRowMeasureLines(e, measuresInRow));
-    renderNotes(songTabulature, rowElementsArray, measuresInRow, numberOfBeats);
-}
-
-export function updateName(name) {
-    const [artist, title] = name.split("-");
-    const artistEl = document.getElementById("artist-of-the-song");
-    const titleEl = document.getElementById("title-of-the-song");
-    artistEl.innerText = artist;
-    titleEl.innerText = title;
-}
-
-export function renderTuning(tuning) {
-    const tuningEl = document.createElement("div");
-    tuningEl.classList.add("tuning-element");
-    firstRowContainer.appendChild(tuningEl);
-    tuningEl.innerText = tuning;
-}
 
 export function renderPlayButton(song) {
     const playButton = new PlayButton(song);
     document.body.appendChild(playButton.getElement());
 }
 
-function renderToggleIsMidiButton(song) {
-    const toggleIsMidiButton = document.createElement("button");
-    toggleIsMidiButton.classList.add("toggle-midi-button");
-    toggleIsMidiButton.onclick = () => {
-        song.audioManager.toggleIsMidi();
-    };
-    document.body.appendChild(toggleIsMidiButton);
-}
-
 export function renderSong(song) {
-    renderInstruments();
-    const { name, tempo, timeSignature, tabulature } = song;
-    renderTuning(tabulature.getTuning());
-    updateName(name);
-    renderVisual(tabulature.getTabulature(), 2, 8);
+    instrumentSelector.renderInstrumentSelector();
+    tuninigElement.renderTuning(song.getTabulatureObject().getTuning());
+    nameSection.updateName(song.getName());
+    tabulatureSection.updateTabulature(
+        song.getTabulatureObject().getTabulature(),
+        2,
+        8
+    );
     renderPlayButton(song);
-    renderToggleIsMidiButton(song);
+    toggleIsMidiButton.renderToggleIsMidiButton(song);
 }

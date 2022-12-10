@@ -1,16 +1,25 @@
+import { instrumentSelector } from "./components/instrumentsSelector.js";
 import { CleanElecticGuitar } from "./instruments/guitars/cleanElecticGuitar.js";
 import { playNote } from "./synthesizer.js";
 import { getNoteFrequency } from "./utils/noteString.js";
 
 export class Song {
-    constructor(name, tempo, timeSignature, tabulature) {
+    constructor(name, tempo, timeSignature, tabulatureObject) {
         this.name = name;
         this.tempo = tempo;
         this.timeSignature = timeSignature;
-        this.tabulature = tabulature;
+        this.tabulatureObject = tabulatureObject;
         this.beatsInMeasure = parseInt(timeSignature.split("/")[0]);
         this.beatLength = 60 / this.tempo / (this.beatsInMeasure === 8 ? 2 : 1);
         this.audioManager;
+    }
+
+    getName() {
+        return this.name;
+    }
+
+    getTabulatureObject() {
+        return this.tabulatureObject;
     }
 
     getNoteTimeInSeconds(beat, measure) {
@@ -28,7 +37,7 @@ export class Song {
     }
 
     getSongLength() {
-        return this.tabulature
+        return this.tabulatureObject
             .getArrayOfGenericNotes()
             .reduce((previous, current) => {
                 return Math.max(
@@ -39,15 +48,12 @@ export class Song {
     }
 
     calculateSong() {
-        const genericNotes = [];
-        this.tabulature
-            .getArrayOfGenericNotes()
-            .forEach((note) => genericNotes.push(note));
-        return genericNotes;
+        return this.tabulatureObject.getArrayOfGenericNotes();
     }
 
-    initAudioManager(instrument) {
+    initAudioManager() {
         const calculatedSong = this.calculateSong();
+        const instrument = instrumentSelector.selectedInstrument;
         const audioManagerArray = calculatedSong.map((genericNote) => {
             const { beat, measure, note, element } = genericNote;
             const audio = instrument.getAudio(note);
