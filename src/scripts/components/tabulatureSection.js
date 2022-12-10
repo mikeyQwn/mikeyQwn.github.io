@@ -85,7 +85,14 @@ function renderRows(measuresCount, measuresInRow = DEFAULT_MEASURES_IN_ROW) {
 }
 
 export const tabulatureSection = {
-    updateTabulature: (songTabulature, measuresInRow, numberOfBeats) => {
+    song: null,
+    setSong: (song) => {
+        tabulatureSection.song = song;
+    },
+    render: (measuresInRow = 2) => {
+        const numberOfBeats = 8;
+        const song = tabulatureSection.song;
+        const songTabulature = song.getTabulatureObject().getTabulature();
         const measuresCount = songTabulature.reduce(
             (prev, curr) => (prev < curr.measure ? curr.measure : prev),
             0

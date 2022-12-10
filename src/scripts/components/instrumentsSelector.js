@@ -7,8 +7,12 @@ const instrumentSection = document.getElementById(
 
 export const instrumentSelector = {
     selectedInstrument: CleanElecticGuitar,
+    song: null,
+    setSong: (song) => {
+        instrumentSelector.song = song;
+    },
 
-    renderInstrumentSelector: () => {
+    render: () => {
         for (const instrument of instruments) {
             const button = document.createElement("button");
             button.classList.add("instrument-button");

@@ -3,7 +3,7 @@ import { nameSection } from "./components/nameSection.js";
 import { tabulatureSection } from "./components/tabulatureSection.js";
 import { toggleIsMidiButton } from "./components/toggleIsMidiButton.js";
 import { tuninigElement } from "./components/tuningElement.js";
-import { PlayButton } from "./playButton.js";
+import { playButton } from "./components/playButton.js";
 
 export function renderPlayButton(song) {
     const playButton = new PlayButton(song);
@@ -11,14 +11,16 @@ export function renderPlayButton(song) {
 }
 
 export function renderSong(song) {
-    instrumentSelector.renderInstrumentSelector();
-    tuninigElement.renderTuning(song.getTabulatureObject().getTuning());
-    nameSection.updateName(song.getName());
-    tabulatureSection.updateTabulature(
-        song.getTabulatureObject().getTabulature(),
-        2,
-        8
-    );
-    renderPlayButton(song);
-    toggleIsMidiButton.renderToggleIsMidiButton(song);
+    const elements = [
+        instrumentSelector,
+        tuninigElement,
+        nameSection,
+        tabulatureSection,
+        playButton,
+        toggleIsMidiButton
+    ];
+    elements.forEach((element) => element.setSong(song));
+    elements.forEach((element) => element.render());
+    // instrumentSelector.renderInstrumentSelector();
+    // instrumentSelector.setSong("Hey");
 }

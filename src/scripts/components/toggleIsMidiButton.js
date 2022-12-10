@@ -1,10 +1,15 @@
 export const toggleIsMidiButton = {
-    renderToggleIsMidiButton: (song) => {
-        const toggleIsMidiButton = document.createElement("button");
-        toggleIsMidiButton.classList.add("toggle-midi-button");
-        toggleIsMidiButton.onclick = () => {
+    song: null,
+    setSong: (song) => {
+        toggleIsMidiButton.song = song;
+    },
+    render: () => {
+        const song = toggleIsMidiButton.song;
+        const toggleIsMidiButtonEl = document.createElement("button");
+        toggleIsMidiButtonEl.classList.add("toggle-midi-button");
+        toggleIsMidiButtonEl.onclick = () => {
             song.audioManager.toggleIsMidi();
         };
-        document.body.appendChild(toggleIsMidiButton);
+        document.body.appendChild(toggleIsMidiButtonEl);
     }
 };
