@@ -65,18 +65,6 @@ export class Song {
             this.beatLength,
             this
         );
-        // calculatedSong.forEach((genericNote) =>
-        //     playNote(
-        //         context,
-        //         this.getNoteTimeInSeconds(
-        //             genericNote.beat,
-        //             genericNote.measure
-        //         ),
-        //         getNoteFrequency(genericNote.note),
-        //         "sine",
-        //         this.beatLength
-        //     )
-        // );
     }
     getAudioManager() {
         return this.audioManager;
@@ -169,11 +157,9 @@ class AudioManager {
         }
         window.requestAnimationFrame(this.playLoop.bind(this));
     }
-    start;
+
     restart() {
-        this.currentNotesValuesArr.forEach((item) => {
-            if (item) item.element.classList.remove("selected-note");
-        });
+        this.unselectCurrentNotes();
         this.song.initAudioManager(CleanElecticGuitar);
     }
 }

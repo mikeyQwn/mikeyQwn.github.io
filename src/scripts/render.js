@@ -1,7 +1,6 @@
 import { CleanElecticGuitar } from "./instruments/guitars/cleanElecticGuitar.js";
-import { Song } from "./song.js";
-import { createUnselectableImg } from "./utils/createUnselectableImage.js";
 import { PlayButton } from "./playButton.js";
+import { createUnselectableImg } from "./utils/createUnselectableImage.js";
 
 const DEFAULT_MEASURES_IN_ROW = 2;
 const DEFAULT_NUMBER_OF_BEATS = 4;
