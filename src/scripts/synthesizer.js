@@ -17,11 +17,9 @@ export function playNote(
     oscillator.frequency.value = frequency;
     gain.connect(context.destination);
     oscillator.start(context.currentTime + delay);
-    // g.gain.setTargetAtTime(0, context.currentTime + delay, 0.01);
     gain.gain.setValueAtTime(0.1, context.currentTime + delay, 0.001);
     gain.gain.linearRampToValueAtTime(
         0,
         context.currentTime + delay + duration
     );
-    // o.stop(context.currentTime + delay + duration);
 }

@@ -1,4 +1,3 @@
-import { CleanElecticGuitar } from "../instruments/guitars/cleanElecticGuitar.js";
 import { createUnselectableImg } from "../utils/createUnselectableImage.js";
 
 const [buttonPlayImg, buttonPauseImg] = createUnselectableImg(

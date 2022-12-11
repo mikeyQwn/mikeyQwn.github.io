@@ -89,7 +89,7 @@ export const tabulatureSection = {
     setSong: (song) => {
         tabulatureSection.song = song;
     },
-    render: (measuresInRow = 2) => {
+    render: (measuresInRow = DEFAULT_MEASURES_IN_ROW) => {
         const numberOfBeats = 8;
         const song = tabulatureSection.song;
         const songTabulature = song.getTabulatureObject().getTabulature();
