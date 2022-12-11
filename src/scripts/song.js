@@ -1,4 +1,6 @@
 import { instrumentSelector } from "./components/instrumentsSelector.js";
+import { playButton } from "./components/playButton.js";
+import { toggleIsMidiButton } from "./components/toggleIsMidiButton.js";
 import { CleanElecticGuitar } from "./instruments/guitars/cleanElecticGuitar.js";
 import { playNote } from "./synthesizer.js";
 import { getNoteFrequency } from "./utils/noteString.js";
@@ -11,7 +13,6 @@ export class Song {
         this.tabulatureObject = tabulatureObject;
         this.beatsInMeasure = parseInt(timeSignature.split("/")[0]);
         this.beatLength = 60 / this.tempo / (this.beatsInMeasure === 8 ? 2 : 1);
-        this.audioManager;
     }
 
     getName() {
@@ -85,7 +86,7 @@ class AudioManager {
         this.nextNoteValue = this.nextNoteIter.next().value;
         this.currentNotesValuesArr = [this.nextNoteIter.value];
         this.isPaused = true;
-        this.isMidi = true;
+        this.isMidi = toggleIsMidiButton.isMidi;
         this.instrument = instrument;
         this.songLength = songLength + 1;
         this.beatLength = beatLength;
@@ -167,6 +168,7 @@ class AudioManager {
     restart() {
         this.unselectCurrentNotes();
         this.song.initAudioManager(CleanElecticGuitar);
+        playButton.toggleIsPlaying();
     }
 }
 

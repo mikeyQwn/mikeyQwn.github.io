@@ -19,11 +19,8 @@ export const playButton = {
         playButton.element.classList.add("play-button");
         playButton.element.appendChild(playButton.playImg);
         document.body.appendChild(playButton.element);
-        playButton.restartSong();
         playButton.handleOnclick();
-    },
-    restartSong: () => {
-        playButton.song.initAudioManager(CleanElecticGuitar);
+        playButton.song.initAudioManager();
     },
 
     handleOnclick() {
