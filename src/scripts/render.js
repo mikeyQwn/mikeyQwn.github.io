@@ -1,3 +1,4 @@
+import { editModeCheckbox } from "./components/editModeCheckbox.js";
 import { instrumentSelector } from "./components/instrumentsSelector.js";
 import { nameSection } from "./components/nameSection.js";
 import { playButton } from "./components/playButton.js";
@@ -12,7 +13,8 @@ export function renderSong(song) {
         nameSection,
         tabulatureSection,
         playButton,
-        toggleIsMidiButton
+        toggleIsMidiButton,
+        editModeCheckbox
     ];
     elements.forEach((element) => element.setSong(song));
     elements.forEach((element) => element.render());
