@@ -29,6 +29,21 @@ export const editModeCheckbox = {
         document.body.appendChild(temporaryNote);
     },
 
+    handleControlsInputOnKeyDown: (event, inputBox) => {
+        if (event.key === "Backspace") inputBox.innerText = "";
+        if (event.key === "Enter")
+            editModeCheckbox.handleControlsButtonOnclick(inputBox);
+    },
+
+    handleControlsInputOnInput: (inputBox) => {
+        inputBox.innerText = inputBox.innerText.replace(/[^0-9]/g, "");
+        inputBox.innerText = inputBox.innerText.split("").reverse().join("");
+        inputBox.innerText =
+            parseInt(inputBox.innerText) > 24
+                ? 24
+                : parseInt(inputBox.innerText);
+    },
+
     initEditModeElement: () => {
         const editModeControlsContainer = document.createElement("div");
         editModeCheckbox.controlsContainerElement = editModeControlsContainer;
@@ -37,6 +52,16 @@ export const editModeCheckbox = {
 
         const editModeControlsInput = document.createElement("div");
         editModeControlsInput.setAttribute("contenteditable", "true");
+        editModeControlsInput.onkeydown = (event) => {
+            editModeCheckbox.handleControlsInputOnKeyDown(
+                event,
+                editModeControlsInput
+            );
+        };
+        editModeControlsInput.oninput = () => {
+            editModeCheckbox.handleControlsInputOnInput(editModeControlsInput);
+        };
+
         editModeControlsContainer.appendChild(editModeControlsInput);
 
         const editModeControlsButton = document.createElement("button");
