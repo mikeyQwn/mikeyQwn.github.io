@@ -76,6 +76,10 @@ export class Song {
     getAudioManager() {
         return this.audioManager;
     }
+
+    toggleEditMode() {
+        console.log(this.tabulatureObject.tabulature);
+    }
 }
 
 class AudioManager {
