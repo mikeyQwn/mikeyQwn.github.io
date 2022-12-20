@@ -12,6 +12,7 @@ const renderNote = (rowEl, sectionWidth, note, index) => {
 
     const noteEl = document.createElement("div");
     noteEl.classList.add("tab-note");
+    noteEl.classList.add("unselectable");
     noteEl.innerText = note.fret;
     noteEl.style.top = `${
         offsetPercntDelta * (note.string - 1) - topOffsetPercent
