@@ -148,11 +148,13 @@ h3 {
     font-size: 1.05em;
     justify-content: center;
     align-items: center;
+    user-select: none;
     width: 14px;
     height: 14px;
 }
 
 .selected-note {
+    user-select: none;
     background-color: white;
     border: 1px solid black;
 }

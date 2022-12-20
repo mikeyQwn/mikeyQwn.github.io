@@ -25,8 +25,25 @@ export const editModeCheckbox = {
         const temporaryNote = document.createElement("div");
         temporaryNote.classList.add("temporary-note");
         temporaryNote.innerText = editModeControlsInput.innerText;
-
         document.body.appendChild(temporaryNote);
+        const halfWidth = temporaryNote.offsetWidth / 2;
+        const halfHeight = temporaryNote.offsetHeight / 2;
+
+        const mousemoveHandler = (e) => {
+            e.preventDefault();
+            temporaryNote.style.left = e.pageX - halfWidth + "px";
+            temporaryNote.style.top = e.pageY - halfHeight + "px";
+        };
+        temporaryNote.onmousedown = () => {
+            document.body.addEventListener("mousemove", mousemoveHandler);
+            document.body.onmouseup = () => {
+                console.log("mouseup");
+                document.body.removeEventListener(
+                    "mousemove",
+                    mousemoveHandler
+                );
+            };
+        };
     },
 
     handleControlsInputOnKeyDown: (event, inputBox) => {
