@@ -24,35 +24,31 @@ export const editModeCheckbox = {
         document.body.appendChild(editModeCheckboxContainer);
     },
 
-    submitTemporaryNote: () => {
+    getTemporaryNoteSongPosition: () => {
         const temporaryNote = editModeCheckbox.temporaryNote;
         const highlightedRowIndex =
             tabulatureSection.rowElementsArray.findIndex((row) =>
                 row.classList.contains("highlighted")
             );
-        const highlightedRowWidth =
-            tabulatureSection.rowElementsArray[highlightedRowIndex].offsetWidth;
-        const highlightedRowHeight =
-            tabulatureSection.rowElementsArray[highlightedRowIndex]
-                .offsetHeight;
-        const highlightedRowX =
-            tabulatureSection.rowElementsArray[
-                highlightedRowIndex
-            ].getBoundingClientRect().x;
-        const highlightedRowY =
-            tabulatureSection.rowElementsArray[
-                highlightedRowIndex
-            ].getBoundingClientRect().y;
+        const highlightedRow =
+            tabulatureSection.rowElementsArray[highlightedRowIndex];
+        const highlightedRowRect = highlightedRow.getBoundingClientRect();
+        const highlightedRowWidth = highlightedRowRect.width;
+        const highlightedRowHeight = highlightedRowRect.height;
+        const highlightedRowX = highlightedRowRect.x;
+        const highlightedRowY = highlightedRowRect.y;
         const notesPerRow =
             tabulatureSection.measuresInRow * tabulatureSection.numberOfBeats;
-        let temporaryNoteBeat = Math.floor(
+
+        let temporaryNoteBeatIndex = Math.floor(
             ((temporaryNote.offsetLeft - highlightedRowX) /
                 highlightedRowWidth) *
                 notesPerRow
         );
-        temporaryNoteBeat += Math.floor(
-            temporaryNoteBeat / tabulatureSection.numberOfBeats
-        );
+
+        const temporaryNoteBeat =
+            (temporaryNoteBeatIndex % tabulatureSection.numberOfBeats) + 1;
+
         const temporaryNoteString =
             Math.floor(
                 ((temporaryNote.offsetTop - highlightedRowY) /
@@ -61,15 +57,23 @@ export const editModeCheckbox = {
             ) + 2;
         const temporaryNoteMeasure =
             highlightedRowIndex * tabulatureSection.measuresInRow +
-            1 +
-            Math.floor(temporaryNoteBeat / tabulatureSection.numberOfBeats);
+            Math.floor(
+                temporaryNoteBeatIndex / tabulatureSection.numberOfBeats
+            ) +
+            1;
 
-        editModeCheckbox.song.addNote(
-            temporaryNote.fret,
-            temporaryNoteString,
-            temporaryNoteMeasure,
-            temporaryNoteBeat % tabulatureSection.numberOfBeats
-        );
+        return {
+            fret: temporaryNote.fret,
+            string: temporaryNoteString,
+            measure: temporaryNoteMeasure,
+            beat: temporaryNoteBeat
+        };
+    },
+
+    submitTemporaryNote: () => {
+        const { fret, string, measure, beat } =
+            editModeCheckbox.getTemporaryNoteSongPosition();
+        editModeCheckbox.song.addNote(fret, string, measure, beat);
     },
 
     handleControlsButtonOnclick: (editModeControlsInput) => {
