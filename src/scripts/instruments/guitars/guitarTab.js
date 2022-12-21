@@ -34,7 +34,6 @@ export class GuitarTab {
     getArrayOfGenericNotes() {
         const arrayOfNotes = [];
         for (const note of this.tabulature) {
-            console.log(note);
             arrayOfNotes.push(
                 new GenericNote(
                     this.keyMap[note.string - 1][note.fret],

@@ -54,7 +54,7 @@ export const editModeCheckbox = {
             Math.floor(
                 ((temporaryNote.offsetTop - highlightedRowY) /
                     highlightedRowHeight) *
-                    6
+                    5
             ) + 2;
         const temporaryNoteMeasure =
             highlightedRowIndex * tabulatureSection.measuresInRow +
@@ -131,7 +131,6 @@ export const editModeCheckbox = {
                     note,
                     sectionIndex
                 );
-                console.log(editModeCheckbox.ghostNote);
             }
         };
         editModeCheckbox.temporaryNote.onmousedown = () => {
