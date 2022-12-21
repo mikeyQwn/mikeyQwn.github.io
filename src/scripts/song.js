@@ -2,6 +2,7 @@ import { instrumentSelector } from "./components/instrumentsSelector.js";
 import { playButton } from "./components/playButton.js";
 import { toggleIsMidiButton } from "./components/toggleIsMidiButton.js";
 import { CleanElecticGuitar } from "./instruments/guitars/cleanElecticGuitar.js";
+import { renderSong } from "./render.js";
 import { playNote } from "./synthesizer.js";
 import { getNoteFrequency } from "./utils/noteString.js";
 
@@ -13,6 +14,12 @@ export class Song {
         this.tabulatureObject = tabulatureObject;
         this.beatsInMeasure = parseInt(timeSignature.split("/")[0]);
         this.beatLength = 60 / this.tempo / (this.beatsInMeasure === 8 ? 2 : 1);
+    }
+
+    addNote(fret, string, measure, beat) {
+        this.tabulatureObject.addNote(fret, string, measure, beat);
+        console.log(fret, string, measure, beat);
+        renderSong(this);
     }
 
     getName() {

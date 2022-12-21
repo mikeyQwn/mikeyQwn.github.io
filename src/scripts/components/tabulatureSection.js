@@ -87,26 +87,32 @@ function renderRows(measuresCount, measuresInRow = DEFAULT_MEASURES_IN_ROW) {
 
 export const tabulatureSection = {
     song: null,
+    rowElementsArray: null,
+    numberOfBeats: 8,
+    measuresInRow: DEFAULT_MEASURES_IN_ROW,
     setSong: (song) => {
         tabulatureSection.song = song;
     },
-    render: (measuresInRow = DEFAULT_MEASURES_IN_ROW) => {
-        const numberOfBeats = 8;
+    render: () => {
+        container.innerHTML = "";
         const song = tabulatureSection.song;
         const songTabulature = song.getTabulatureObject().getTabulature();
         const measuresCount = songTabulature.reduce(
             (prev, curr) => (prev < curr.measure ? curr.measure : prev),
             0
         );
-        const rowElementsArray = renderRows(measuresCount, measuresInRow);
-        rowElementsArray.forEach((e) =>
-            renderRowMeasureLines(e, measuresInRow)
+        tabulatureSection.rowElementsArray = renderRows(
+            measuresCount,
+            tabulatureSection.measuresInRow
+        );
+        tabulatureSection.rowElementsArray.forEach((e) =>
+            renderRowMeasureLines(e, tabulatureSection.measuresInRow)
         );
         renderNotes(
             songTabulature,
-            rowElementsArray,
-            measuresInRow,
-            numberOfBeats
+            tabulatureSection.rowElementsArray,
+            tabulatureSection.measuresInRow,
+            tabulatureSection.numberOfBeats
         );
     }
 };

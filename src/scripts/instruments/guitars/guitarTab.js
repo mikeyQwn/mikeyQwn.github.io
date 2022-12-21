@@ -27,9 +27,14 @@ export class GuitarTab {
         this.keyMap = generateGuitarKeyMap(tuning);
     }
 
+    addNote(fret, string, measure, beat) {
+        this.tabulature.push({ fret, string, measure, beat });
+    }
+
     getArrayOfGenericNotes() {
         const arrayOfNotes = [];
         for (const note of this.tabulature) {
+            console.log(note);
             arrayOfNotes.push(
                 new GenericNote(
                     this.keyMap[note.string - 1][note.fret],
