@@ -18,7 +18,6 @@ export class Song {
 
     addNote(fret, string, measure, beat) {
         this.tabulatureObject.addNote(fret, string, measure, beat);
-        console.log(fret, string, measure, beat);
         renderSong(this);
     }
 
