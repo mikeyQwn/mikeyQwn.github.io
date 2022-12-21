@@ -196,8 +196,14 @@ export const editModeCheckbox = {
 
     toggleEditMode: () => {
         editModeCheckbox.isEditMode = !editModeCheckbox.isEditMode;
-        if (!editModeCheckbox.isEditMode)
+        if (editModeCheckbox.isEditMode) {
+            editModeCheckbox.initEditModeElement();
+            return;
+        }
+        if (editModeCheckbox.controlsContainerElement)
             editModeCheckbox.controlsContainerElement.remove();
-        if (editModeCheckbox.isEditMode) editModeCheckbox.initEditModeElement();
+        if (editModeCheckbox.temporaryNote)
+            editModeCheckbox.temporaryNote.remove();
+        if (editModeCheckbox.ghostNote) editModeCheckbox.ghostNote.remove();
     }
 };
