@@ -6,7 +6,7 @@ const DEFAULT_NUMBER_OF_BEATS = 4;
 const container = document.getElementById("tab-content-container");
 const firstRowContainer = document.getElementById("first-tab-row-container");
 
-const renderNote = (rowEl, sectionWidth, note, index) => {
+export const renderNote = (rowEl, sectionWidth, note, index) => {
     const topOffsetPercent = 20;
     const offsetPercntDelta = (100 + topOffsetPercent) / 5;
 

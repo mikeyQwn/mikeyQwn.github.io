@@ -1,10 +1,11 @@
-import { tabulatureSection } from "./tabulatureSection.js";
+import { renderNote, tabulatureSection } from "./tabulatureSection.js";
 
 export const editModeCheckbox = {
     song: null,
     isEditMode: false,
     controlsContainerElement: document.createElement("div"),
     temporaryNote: null,
+    ghostNote: null,
     setSong: (song) => {
         editModeCheckbox.song = song;
     },
@@ -114,6 +115,23 @@ export const editModeCheckbox = {
                     continue;
                 }
                 row.classList.add("highlighted");
+                const note = editModeCheckbox.getTemporaryNoteSongPosition();
+                const sectionIndex =
+                    ((note.measure - 1) % tabulatureSection.measuresInRow) *
+                        tabulatureSection.numberOfBeats +
+                    note.beat -
+                    1;
+                if (editModeCheckbox.ghostNote)
+                    editModeCheckbox.ghostNote.remove();
+                editModeCheckbox.ghostNote = renderNote(
+                    row,
+                    100 /
+                        (tabulatureSection.measuresInRow *
+                            tabulatureSection.numberOfBeats),
+                    note,
+                    sectionIndex
+                );
+                console.log(editModeCheckbox.ghostNote);
             }
         };
         editModeCheckbox.temporaryNote.onmousedown = () => {
