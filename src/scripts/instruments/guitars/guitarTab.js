@@ -29,6 +29,12 @@ export class GuitarTab {
 
     addNote(fret, string, measure, beat) {
         this.tabulature.push({ fret, string, measure, beat });
+        this.tabulature.sort((a, b) => {
+            if (a.measure === b.measure) {
+                return a.beat - b.beat;
+            }
+            return a.measure - b.measure;
+        });
     }
 
     getArrayOfGenericNotes() {

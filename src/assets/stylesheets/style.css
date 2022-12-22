@@ -201,6 +201,22 @@ h3 {
     background-color: var(--default-midtone-color);
 }
 
+.save-song-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 18px;
+    width: 100px;
+    height: 100px;
+    position: fixed;
+    font-size: 20px;
+    bottom: 28px;
+    left: 59px;
+    border-radius: 10px;
+    border: 2px solid black;
+    background-color: var(--default-midtone-color);
+}
+
 .edit-mode-checkbox {
     display: flex;
     justify-content: center;

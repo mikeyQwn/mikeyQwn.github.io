@@ -1,0 +1,25 @@
+{
+    "name": "English song - Twinkle Twinkle Little Star",
+    "tempo": 100,
+    "timeSignature": "8/8",
+    "instrument": "guitar",
+    "instrumentSpecificData": {
+        "tabulature": [
+            { "fret": 0, "string": 1, "measure": 1, "beat": 1 },
+            { "fret": 0, "string": 1, "measure": 1, "beat": 2 },
+            { "fret": 7, "string": 1, "measure": 1, "beat": 3 },
+            { "fret": 7, "string": 1, "measure": 1, "beat": 4 },
+            { "fret": 9, "string": 1, "measure": 1, "beat": 5 },
+            { "fret": 9, "string": 1, "measure": 1, "beat": 6 },
+            { "fret": 7, "string": 1, "measure": 1, "beat": 7 },
+            { "fret": 5, "string": 1, "measure": 2, "beat": 1 },
+            { "fret": 5, "string": 1, "measure": 2, "beat": 2 },
+            { "fret": 4, "string": 1, "measure": 2, "beat": 3 },
+            { "fret": 4, "string": 1, "measure": 2, "beat": 4 },
+            { "fret": 2, "string": 1, "measure": 2, "beat": 5 },
+            { "fret": 2, "string": 1, "measure": 2, "beat": 6 },
+            { "fret": 0, "string": 1, "measure": 2, "beat": 7 }
+        ],
+        "tuning": ["E4", "B3", "G3", "D3", "A2", "E2"]
+    }
+}

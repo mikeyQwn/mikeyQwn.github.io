@@ -22,3 +22,13 @@ const getTabulatureClass = (instrument, instrumentSpecificData) => {
             );
     }
 };
+
+export const loadLocalStorageSong = () => {
+    const song = JSON.parse(localStorage.getItem("edited-song"));
+    return new Song(
+        song.name,
+        song.tempo,
+        song.timeSignature,
+        getTabulatureClass("guitar", song.tabulatureObject)
+    );
+};

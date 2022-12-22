@@ -1,8 +1,10 @@
+import { songListSection } from "./songListSection.js";
 import { renderNote, tabulatureSection } from "./tabulatureSection.js";
 
 export const editModeCheckbox = {
     song: null,
     isEditMode: false,
+    isAlreadyEdited: false,
     controlsContainerElement: document.createElement("div"),
     editModeCheckboxContainer: null,
     temporaryNote: null,
