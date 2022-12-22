@@ -10,7 +10,6 @@
 Список доступных образцов табулатур:
 
 -   My Chemical Romance - Thank You for the Venom;
+-   English song - Twinkle Twinkle Little Star
 
 ---
-
-Ссылка на макет figma: https://www.figma.com/file/xPv1xKAaDMPxzti2BQC1wh/Tabulature-Reader?node-id=2%3A4&t=2BOimYetAsYVAja6-1
