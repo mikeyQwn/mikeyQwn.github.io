@@ -94,8 +94,9 @@ export const tabulatureSection = {
         tabulatureSection.song = song;
     },
     render: () => {
-        container.innerHTML = "";
         const song = tabulatureSection.song;
+        if (tabulatureSection.rowElementsArray)
+            tabulatureSection.rowElementsArray.forEach((row) => row.remove());
         const songTabulature = song.getTabulatureObject().getTabulature();
         const measuresCount = songTabulature.reduce(
             (prev, curr) => (prev < curr.measure ? curr.measure : prev),

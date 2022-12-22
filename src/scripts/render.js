@@ -10,8 +10,8 @@ export function renderSong(song) {
     const elements = [
         instrumentSelector,
         tuninigElement,
-        nameSection,
         tabulatureSection,
+        nameSection,
         playButton,
         toggleIsMidiButton,
         editModeCheckbox

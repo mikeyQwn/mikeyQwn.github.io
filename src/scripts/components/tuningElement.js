@@ -11,6 +11,7 @@ export const tuninigElement = {
         tuningEl.classList.add("tuning-element");
         tuningEl.classList.add("unselectable");
         firstRowContainer.appendChild(tuningEl);
+        console.log(tuningEl);
         tuningEl.innerText = tuning;
     }
 };
