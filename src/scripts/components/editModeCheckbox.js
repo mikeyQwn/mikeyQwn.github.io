@@ -4,12 +4,17 @@ export const editModeCheckbox = {
     song: null,
     isEditMode: false,
     controlsContainerElement: document.createElement("div"),
+    editModeCheckboxContainer: null,
     temporaryNote: null,
     ghostNote: null,
+
     setSong: (song) => {
         editModeCheckbox.song = song;
     },
     render: () => {
+        if (editModeCheckbox.editModeCheckboxContainer) {
+            return;
+        }
         const editModeCheckboxContainer = document.createElement("div");
         editModeCheckboxContainer.classList.add("edit-mode-checkbox");
         editModeCheckboxContainer.innerText = "EditMode:";
@@ -23,6 +28,7 @@ export const editModeCheckbox = {
         };
 
         document.body.appendChild(editModeCheckboxContainer);
+        editModeCheckbox.editModeCheckboxContainer = editModeCheckboxContainer;
     },
 
     getTemporaryNoteSongPosition: () => {
