@@ -188,12 +188,14 @@ export const editModeCheckbox = {
         editModeControlsContainer.appendChild(editModeControlsInput);
 
         const editModeControlsButton = document.createElement("button");
+        editModeControlsButton.title = "Создать ноту";
         editModeControlsContainer.appendChild(editModeControlsButton);
         editModeControlsButton.onclick = () => {
             editModeCheckbox.handleControlsButtonOnclick(editModeControlsInput);
         };
 
         const editModeSubmitButton = document.createElement("button");
+        editModeSubmitButton.title = "Применить ноту";
         editModeControlsContainer.appendChild(editModeSubmitButton);
         editModeSubmitButton.onclick = () => {
             editModeCheckbox.submitTemporaryNote();
