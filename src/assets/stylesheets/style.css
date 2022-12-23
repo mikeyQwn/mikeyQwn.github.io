@@ -116,6 +116,10 @@ h3 {
     translate: var(--side-menu-width);
 }
 
+.song-list-item {
+    padding-top: 10px;
+}
+
 .first-tab-row-container {
     display: flex;
 }
